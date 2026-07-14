@@ -216,7 +216,7 @@
                 </div>
                 <div class="bg-zinc-900/40 p-2 rounded border border-zinc-900">
                   <span class="text-zinc-500 block">Ring Metal</span>
-                  <span class="text-zinc-300">Aero-Titanium</span>
+                  <span class="text-zinc-350">Aero-Titanium</span>
                 </div>
                 <div class="bg-zinc-900/40 p-2 rounded border border-zinc-900">
                   <span class="text-zinc-500 block">Sensing Latency</span>
@@ -443,11 +443,11 @@
 
   <!-- Telemetry Bottom Action Bar (Fixed, Sleek glass-capsule at viewport bottom) -->
   <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-zinc-950/80 backdrop-blur-md px-6 py-2.5 rounded-full border border-amber-500/20 shadow-xl shadow-amber-950/10 flex items-center space-x-6 text-xs text-zinc-300 select-none">
-    <div class="flex items-center space-x-1.5 font-mono">
-      <i data-lucide="eye" class="text-zinc-400 w-4 h-4"></i>
-      <span class="text-zinc-500">Views:</span>
+    <button onclick="incrementView()" class="flex items-center space-x-1.5 group hover:text-amber-300 transition-colors font-mono focus:outline-none">
+      <i data-lucide="eye" id="views-icon" class="text-zinc-400 group-hover:text-amber-400 transition-all w-4 h-4"></i>
+      <span class="text-zinc-500 group-hover:text-amber-400">Views:</span>
       <span id="telemetry-views" class="text-zinc-200 font-bold">1</span>
-    </div>
+    </button>
     <div class="h-4 w-[1px] bg-zinc-850"></div>
     <button onclick="incrementLike()" class="flex items-center space-x-1.5 group hover:text-amber-300 transition-colors font-mono focus:outline-none">
       <i data-lucide="heart" id="like-icon" class="text-zinc-400 group-hover:text-red-400 group-hover:fill-red-400/20 transition-all w-4 h-4"></i>
@@ -562,6 +562,13 @@
 
       // Check if user session name is logged
       checkAndPromptUser();
+
+      // Expose Firestore handlers to the global window scope for command usage
+      window.db = db;
+      window.doc = doc;
+      window.getDoc = getDoc;
+      window.setDoc = setDoc;
+      window.globalState = globalState;
     }
 
     function initLocalFallback() {
@@ -620,6 +627,24 @@
       });
     }
 
+    // Interactive view trigger
+    async function incrementView() {
+      const eyeIcon = document.getElementById('views-icon');
+      eyeIcon.classList.add('scale-125', 'text-amber-400');
+      setTimeout(() => eyeIcon.classList.remove('scale-125'), 200);
+
+      globalState.views += 1;
+      updateTelemetryUI();
+
+      if (db && statsDocRef) {
+        await setDoc(statsDocRef, {
+          views: globalState.views
+        }, { merge: true });
+      } else {
+        localStorage.setItem('sarvam_views', globalState.views.toString());
+      }
+    }
+
     // Interactive stoic like trigger
     async function incrementLike() {
       const heartIcon = document.getElementById('like-icon');
@@ -642,6 +667,7 @@
     initEcosystemState();
 
     // Bind custom elements to window to preserve clean inline HTML events
+    window.incrementView = incrementView;
     window.incrementLike = incrementLike;
     window.submitUserName = submitUserName;
   </script>
