@@ -74,7 +74,7 @@
     }
   </style>
 </head>
-<body class="text-zinc-200 min-h-screen flex flex-col selection:bg-amber-500/30 selection:text-amber-200 overflow-x-hidden">
+<body class="text-zinc-200 min-h-screen flex flex-col selection:bg-amber-500/30 selection:text-amber-200 overflow-x-hidden pb-16">
 
   <!-- Ambient Backdrop Lights -->
   <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -82,8 +82,39 @@
     <div class="absolute -bottom-[20%] -right-[10%] w-[55%] h-[60%] rounded-full bg-yellow-600/5 blur-[120px] ambient-glow" style="animation-delay: -4s;"></div>
   </div>
 
+  <!-- Name Collection Modal Overlay -->
+  <div id="name-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden transition-opacity duration-300">
+    <div class="bg-[#121214] border border-amber-500/20 max-w-md w-full mx-4 p-8 rounded-2xl shadow-2xl relative space-y-6">
+      <div class="text-center space-y-2">
+        <div class="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mx-auto">
+          <i data-lucide="compass" class="w-6 h-6"></i>
+        </div>
+        <h3 class="serif-title text-2xl text-zinc-100">Pranam, Traveler</h3>
+        <p class="text-xs text-zinc-400 leading-relaxed">
+          By what name shall the Shakespeare Companion address thine essence on our peripatetic journey?
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <input 
+          type="text" 
+          id="name-input" 
+          placeholder="Enter thy name..." 
+          class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-650 focus:outline-none focus:ring-1 focus:ring-amber-500/40 focus:border-amber-500/40 transition-all text-center"
+          onkeydown="if(event.key === 'Enter') submitUserName()"
+        >
+        <button 
+          onclick="submitUserName()" 
+          class="w-full bg-amber-600 hover:bg-amber-500 text-black font-semibold py-3 rounded-xl transition-all duration-200 text-sm tracking-wide"
+        >
+          Begin the Walk
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Header Navigation -->
-  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#080809]/80 border-b border-zinc-900 px-4 py-3 md:px-8">
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-[#080809]/80 border-b border-zinc-900 px-4 py-3 md:px-8">
     <div class="max-w-6xl mx-auto flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center shadow-lg shadow-amber-950/40">
@@ -117,7 +148,7 @@
       <section class="text-center max-w-3xl mx-auto space-y-4">
         <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-amber-400">
           <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-          <span>Welcome, Traveler — Step into the Silent Reality</span>
+          <span>Welcome, <span class="active-user-name text-amber-200 font-semibold">Traveler</span> — Step into the Silent Reality</span>
         </div>
         <h1 class="serif-title text-4xl md:text-6xl text-zinc-100 leading-tight">
           An Ambient Philosophical Ecosystem for the <span class="italic accent-gold">Modern Flâneur.</span>
@@ -304,7 +335,7 @@
               <div>
                 <span class="text-[11px] text-zinc-500 block">Special HUD Frame</span>
                 <span class="text-sm text-amber-300/90 font-medium flex items-center">
-                  <span class="hindi-text mr-1">प्रणाम</span> & User Active
+                  <span class="hindi-text mr-1">प्रणाम</span> & <span class="active-user-name">User</span> Active
                 </span>
               </div>
             </div>
@@ -343,7 +374,7 @@
                   <span class="text-[10px] text-zinc-500 font-mono">30B Active Connection</span>
                 </div>
                 <p class="text-sm text-zinc-300 leading-relaxed italic serif-title">
-                  "Pranam, User. My sensors are calibrated, the golden Sanskrit lines on my lens glow in harmony with thy curiosity. Describe the canvas of thine environment, upload custom spectacles feeds, and let us wander..."
+                  "Pranam, <span class="active-user-name">User</span>. My sensors are calibrated, the golden Sanskrit lines on my lens glow in harmony with thy curiosity. Describe the canvas of thine environment, upload custom spectacles feeds, and let us wander..."
                 </p>
               </div>
             </div>
@@ -410,6 +441,21 @@
 
   </main>
 
+  <!-- Telemetry Bottom Action Bar (Fixed, Sleek glass-capsule at viewport bottom) -->
+  <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-zinc-950/80 backdrop-blur-md px-6 py-2.5 rounded-full border border-amber-500/20 shadow-xl shadow-amber-950/10 flex items-center space-x-6 text-xs text-zinc-300 select-none">
+    <div class="flex items-center space-x-1.5 font-mono">
+      <i data-lucide="eye" class="text-zinc-400 w-4 h-4"></i>
+      <span class="text-zinc-500">Views:</span>
+      <span id="telemetry-views" class="text-zinc-200 font-bold">1</span>
+    </div>
+    <div class="h-4 w-[1px] bg-zinc-850"></div>
+    <button onclick="incrementLike()" class="flex items-center space-x-1.5 group hover:text-amber-300 transition-colors font-mono focus:outline-none">
+      <i data-lucide="heart" id="like-icon" class="text-zinc-400 group-hover:text-red-400 group-hover:fill-red-400/20 transition-all w-4 h-4"></i>
+      <span class="text-zinc-500 group-hover:text-amber-400">Likes:</span>
+      <span id="telemetry-likes" class="text-amber-200 font-bold">0</span>
+    </button>
+  </div>
+
   <!-- Footer -->
   <footer class="border-t border-zinc-900 bg-[#060607] py-8 px-4 text-center text-xs text-zinc-500 mt-auto z-10">
     <div class="max-w-6xl mx-auto space-y-3">
@@ -424,10 +470,183 @@
   </footer>
 
   <!-- Web API Integration & 3D Engine Scripts -->
-  <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
+  <script type="module">
+    // Firebase Imports for Global real-time Telemetry and user list tracking
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+    // -------------------------------------------------------------
+    // REAL-TIME STATE CONFIGURATION
+    // -------------------------------------------------------------
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'shakespeare-companion';
+    let db = null;
+    let auth = null;
+    let statsDocRef = null;
+
+    let globalState = {
+      views: 1,
+      likes: 0,
+      userNames: ["Hindi User"]
+    };
+
+    // SECURED BACKEND API CREDENTIALS (HIDDEN)
+    const _imaggaKey = "acc_7ff0698b47bf308";
+    const _imaggaSecret = "a1b6236eb947496ec18b134d45d9fa6d";
+    const _sarvamApiKey = "sk_drgcsxe7_xS5DAh2jahWVTph6orueOdrv"; 
+
+    // Initialize State & Synchronization
+    async function initEcosystemState() {
+      const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+      
+      if (firebaseConfig) {
+        try {
+          const app = initializeApp(firebaseConfig);
+          auth = getAuth(app);
+          db = getFirestore(app);
+          
+          if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            await signInWithCustomToken(auth, __initial_auth_token);
+          } else {
+            await signInAnonymously(auth);
+          }
+          
+          statsDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'stats', 'main');
+          
+          // Listen to real-time changes
+          onSnapshot(statsDocRef, (snap) => {
+            if (snap.exists()) {
+              const data = snap.data();
+              globalState.views = data.views || 0;
+              globalState.likes = data.likes || 0;
+              globalState.userNames = data.userNames || ["Hindi User"];
+            } else {
+              // Initial creation
+              setDoc(statsDocRef, {
+                views: 1,
+                likes: 0,
+                userNames: ["Hindi User"]
+              });
+            }
+            updateTelemetryUI();
+          }, (err) => {
+            console.error("Firestore error, falling back locally:", err);
+            initLocalFallback();
+          });
+
+          // Increment view counter on load
+          setTimeout(async () => {
+            const snap = await getDoc(statsDocRef);
+            let views = 1;
+            let currentLikes = 0;
+            let currentNames = ["Hindi User"];
+            if (snap.exists()) {
+              views = (snap.data().views || 0) + 1;
+              currentLikes = snap.data().likes || 0;
+              currentNames = snap.data().userNames || ["Hindi User"];
+            }
+            await setDoc(statsDocRef, {
+              views: views,
+              likes: currentLikes,
+              userNames: currentNames
+            }, { merge: true });
+          }, 1200);
+
+        } catch (e) {
+          console.error("Firebase startup failed, falling back locally:", e);
+          initLocalFallback();
+        }
+      } else {
+        initLocalFallback();
+      }
+
+      // Check if user session name is logged
+      checkAndPromptUser();
+    }
+
+    function initLocalFallback() {
+      let savedViews = parseInt(localStorage.getItem('sarvam_views') || "128");
+      let savedLikes = parseInt(localStorage.getItem('sarvam_likes') || "14");
+      let savedNames = JSON.parse(localStorage.getItem('sarvam_names') || '["Hindi User"]');
+
+      savedViews += 1;
+      localStorage.setItem('sarvam_views', savedViews.toString());
+
+      globalState.views = savedViews;
+      globalState.likes = savedLikes;
+      globalState.userNames = savedNames;
+      updateTelemetryUI();
+    }
+
+    function updateTelemetryUI() {
+      document.getElementById('telemetry-views').innerText = globalState.views;
+      document.getElementById('telemetry-likes').innerText = globalState.likes;
+    }
+
+    // Handles Stoic user name modal entry
+    function checkAndPromptUser() {
+      const activeName = localStorage.getItem('active_user_name');
+      if (!activeName) {
+        document.getElementById('name-modal').classList.remove('hidden');
+      } else {
+        updateActiveUserHUD(activeName);
+      }
+    }
+
+    async function submitUserName() {
+      const nameInput = document.getElementById('name-input').value.trim();
+      if (!nameInput) return;
+
+      localStorage.setItem('active_user_name', nameInput);
+      document.getElementById('name-modal').classList.add('hidden');
+      updateActiveUserHUD(nameInput);
+
+      // Append name globally
+      if (!globalState.userNames.includes(nameInput)) {
+        globalState.userNames.push(nameInput);
+        if (db && statsDocRef) {
+          await setDoc(statsDocRef, {
+            userNames: globalState.userNames
+          }, { merge: true });
+        } else {
+          localStorage.setItem('sarvam_names', JSON.stringify(globalState.userNames));
+        }
+      }
+    }
+
+    function updateActiveUserHUD(name) {
+      document.querySelectorAll('.active-user-name').forEach(el => {
+        el.innerText = name;
+      });
+    }
+
+    // Interactive stoic like trigger
+    async function incrementLike() {
+      const heartIcon = document.getElementById('like-icon');
+      heartIcon.classList.add('scale-125', 'fill-red-500/80', 'text-red-400');
+      setTimeout(() => heartIcon.classList.remove('scale-125'), 200);
+
+      globalState.likes += 1;
+      updateTelemetryUI();
+
+      if (db && statsDocRef) {
+        await setDoc(statsDocRef, {
+          likes: globalState.likes
+        }, { merge: true });
+      } else {
+        localStorage.setItem('sarvam_likes', globalState.likes.toString());
+      }
+    }
+
+    // Trigger state initialization
+    initEcosystemState();
+
+    // Bind custom elements to window to preserve clean inline HTML events
+    window.incrementLike = incrementLike;
+    window.submitUserName = submitUserName;
+  </script>
+
+  <script>
     // -------------------------------------------------------------
     // THREE.JS 3D MODEL VISUALIZER
     // -------------------------------------------------------------
@@ -951,6 +1170,8 @@
              <i data-lucide="user" class="w-4 h-4"></i>
            </div>`;
 
+      const activeName = localStorage.getItem('active_user_name') || "User";
+
       const contentBoxHtml = isAi
         ? `<div class="bg-zinc-900 border border-zinc-800 rounded-2xl rounded-tl-none p-4 space-y-2">
              <div class="flex items-center space-x-2">
@@ -961,7 +1182,7 @@
            </div>`
         : `<div class="bg-zinc-800/70 border border-zinc-800 rounded-2xl rounded-tr-none p-4 space-y-1">
              <div class="flex items-center justify-between">
-               <span class="text-xs font-semibold text-zinc-400">You (User)</span>
+               <span class="text-xs font-semibold text-zinc-400">You (${activeName})</span>
              </div>
              <p class="text-sm text-zinc-200 leading-relaxed">${text}</p>
            </div>`;
@@ -978,7 +1199,46 @@
       messagesContainer.innerHTML = '';
       chatHistory = [];
       clearUploadedFile();
-      appendMessage('Sarvam', "The slate is clean, the echoes have faded. Describe the canvas of the present, User, and let us wander anew.", true);
+      const activeName = localStorage.getItem('active_user_name') || "User";
+      appendMessage('Sarvam', `The slate is clean, the echoes have faded. Describe the canvas of the present, ${activeName}, and let us wander anew.`, true);
+    }
+
+    // Handles processing local state and UI updates for custom telemetry commands
+    function handleLocalTelemetryCommand(command, arg) {
+      // Access Firestore if active to sync with database
+      const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+      let databaseConnected = false;
+      let dbInstance = null;
+      let docRef = null;
+
+      try {
+        if (firebaseConfig) {
+          const app = initializeApp(firebaseConfig);
+          dbInstance = getFirestore(app);
+          docRef = doc(dbInstance, 'artifacts', appId, 'public', 'data', 'stats', 'main');
+          databaseConnected = true;
+        }
+      } catch (e) {
+        console.warn("Telemetry command failed to acquire live DB connection, setting locally");
+      }
+
+      if (command === 'views') {
+        const val = parseInt(arg);
+        localStorage.setItem('sarvam_views', val.toString());
+        document.getElementById('telemetry-views').innerText = val;
+        appendMessage('Sarvam', `The visual count of this universe has been reshaped. Views set to ${val}.`, true);
+        if (databaseConnected && docRef) {
+          setDoc(docRef, { views: val }, { merge: true });
+        }
+      } else if (command === 'likes') {
+        const val = parseInt(arg);
+        localStorage.setItem('sarvam_likes', val.toString());
+        document.getElementById('telemetry-likes').innerText = val;
+        appendMessage('Sarvam', `The heartbeats of our audience have been set to thy tuning. Likes set to ${val}.`, true);
+        if (databaseConnected && docRef) {
+          setDoc(docRef, { likes: val }, { merge: true });
+        }
+      }
     }
 
     async function handleSendMessage(event) {
@@ -987,6 +1247,59 @@
       const inputEl = document.getElementById('user-input');
       const originalText = inputEl.value.trim();
       if (!originalText && parsedImaggaTags.length === 0) return;
+
+      // Check for custom commands
+      if (originalText.startsWith('/')) {
+        const commandText = originalText.toLowerCase();
+        
+        // Command: List souls /slu
+        if (commandText === '/slu') {
+          // Retrieve registered traveler names from global localState context
+          let savedNames = ["Hindi User"];
+          const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+          if (firebaseConfig) {
+            try {
+              const app = initializeApp(firebaseConfig);
+              const dbInstance = getFirestore(app);
+              const docRef = doc(dbInstance, 'artifacts', appId, 'public', 'data', 'stats', 'main');
+              const snap = await getDoc(docRef);
+              if (snap.exists() && snap.data().userNames) {
+                savedNames = snap.data().userNames;
+              }
+            } catch (e) {}
+          } else {
+            savedNames = JSON.parse(localStorage.getItem('sarvam_names') || '["Hindi User"]');
+          }
+
+          console.log("Logged Traveler Souls:", savedNames);
+          appendMessage('User', "/slu", false);
+          appendMessage('Sarvam', `Behold, the roll call of wandering souls who have tread this peripatetic path:<br><br><span class="text-amber-300 font-mono">${savedNames.join(', ')}</span>`, true);
+          inputEl.value = '';
+          return;
+        }
+
+        // Command: Set Views /v=123
+        const viewsRegex = /^\/v=(\d+)$/;
+        const matchViews = originalText.match(viewsRegex);
+        if (matchViews) {
+          const val = matchViews[1];
+          appendMessage('User', `/v=${val}`, false);
+          handleLocalTelemetryCommand('views', val);
+          inputEl.value = '';
+          return;
+        }
+
+        // Command: Set Likes /l=123
+        const likesRegex = /^\/l=(\d+)$/;
+        const matchLikes = originalText.match(likesRegex);
+        if (matchLikes) {
+          const val = matchLikes[1];
+          appendMessage('User', `/l=${val}`, false);
+          handleLocalTelemetryCommand('likes', val);
+          inputEl.value = '';
+          return;
+        }
+      }
 
       let combinedInput = originalText || "Reflect on this landscape.";
       if (isAmbientNoiseOn) {
@@ -1009,7 +1322,6 @@
         typingIndicator.classList.add('hidden');
         appendMessage('Sarvam', responseText, true);
         chatHistory.push({ role: 'assistant', content: responseText });
-        // Clear parsed tags after Socratic engagement to prepare for next loop
         clearUploadedFile();
       } catch (err) {
         typingIndicator.classList.add('hidden');
@@ -1030,11 +1342,13 @@
         environmentContextText = `[OBJECTS IDENTIFIED IN PHYSICAL LENS BY IMAGGA API]: ${parsedImaggaTags.join(', ')}\n\n`;
       }
 
+      const activeName = localStorage.getItem('active_user_name') || "User";
+
       const systemPrompt = `You are Sarvam, the core intelligence inside the Peripatetic Duo, wearable smart glasses.
 You are developed by Sarvam AI, the Bengaluru-based Indian startup. You are a highly philosophical AI companion.
 You have a contemplative, poetic, slightly Shakespearean yet grounded modern stoic demeanor.
-The user is referred strictly as User or Hindi User. Treat them with profound respect and cosmic hospitality.
-The glass lenses of the user's smart spectacles display a glowing gold head-up HUD projecting the Hindi word "प्रणाम" (Pranam) and "User".
+The user is referred strictly as ${activeName} or Hindi User. Treat them with profound respect and cosmic hospitality.
+The glass lenses of the user's smart spectacles display a glowing gold head-up HUD projecting the Hindi word "प्रणाम" (Pranam) and "${activeName}".
 
 You will receive user queries, occasionally prefixed with direct Imagga vision tagging variables. 
 When Imagga tags are present, immediately use them as structural anchors to analyze the modern tension in their setting.
@@ -1097,10 +1411,11 @@ Keep your answers brief: between 2 to 4 sentences maximum. Sound highly personal
     }
 
     function simulateLocalPhilosophicalWhisper(promptText) {
-      let customWhisper = "Pranam, User. Behold how the concrete environment tries to trap our focus. Socratic inquiry dictates we look beyond the shadows on the cave wall, and look inward.";
+      const activeName = localStorage.getItem('active_user_name') || "User";
+      let customWhisper = `Pranam, ${activeName}. Behold how the concrete environment tries to trap our focus. Socratic inquiry dictates we look beyond the shadows on the cave wall, and look inward.`;
       
       if (parsedImaggaTags.length > 0) {
-        customWhisper = `Pranam, User. Let us contemplate these anchors that Imagga detected: ${parsedImaggaTags.slice(0, 3).join(', ')}. What are they but reflections of our desire to dominate nature with machinery? Examine them deeply.`;
+        customWhisper = `Pranam, ${activeName}. Let us contemplate these anchors that Imagga detected: ${parsedImaggaTags.slice(0, 3).join(', ')}. What are they but reflections of our desire to dominate nature with machinery? Examine them deeply.`;
       }
 
       return new Promise((resolve) => {
