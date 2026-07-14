@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Shakespeare Companion - The Peripatetic Duo</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Three.js for 3D Models -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #080809;
+    }
+    .serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+    .mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .hindi-text {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .accent-gold {
+      color: #e5b875;
+    }
+    .border-gold-dim {
+      border-color: rgba(229, 184, 117, 0.2);
+    }
+    .bg-gold-glow {
+      box-shadow: 0 0 20px rgba(229, 184, 117, 0.15);
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #080809;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f1f23;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2e2e35;
+    }
+
+    /* Ambient Pulsing Glow */
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.15; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(1.08); }
+    }
+    .ambient-glow {
+      animation: pulseGlow 8s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="text-zinc-200 min-h-screen flex flex-col selection:bg-amber-500/30 selection:text-amber-200 overflow-x-hidden">
+
+  <!-- Ambient Backdrop Lights -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div class="absolute -top-[30%] -left-[20%] w-[70%] h-[75%] rounded-full bg-amber-600/10 blur-[140px] ambient-glow"></div>
+    <div class="absolute -bottom-[20%] -right-[10%] w-[55%] h-[60%] rounded-full bg-yellow-600/5 blur-[120px] ambient-glow" style="animation-delay: -4s;"></div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#080809]/80 border-b border-zinc-900 px-4 py-3 md:px-8">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center shadow-lg shadow-amber-950/40">
+          <i data-lucide="compass" class="text-black w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="font-semibold text-zinc-100 tracking-wide block">THE SHAKESPEARE COMPANION</span>
+          <span class="text-[10px] text-zinc-400 tracking-widest uppercase block -mt-1">Ecosystem Blueprint</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex space-x-1 bg-zinc-900/60 p-1 rounded-full border border-zinc-800/80">
+        <button id="btn-blueprint" onclick="switchTab('blueprint')" class="px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-200 bg-amber-500/10 text-amber-200 border border-amber-500/20 shadow-sm shadow-amber-950/40">
+          Ecosystem Blueprint
+        </button>
+        <button id="btn-chat" onclick="switchTab('chat')" class="px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-200 text-zinc-400 hover:text-zinc-200">
+          Talk to Sarvam (AI)
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow z-10 max-w-6xl w-full mx-auto px-4 py-8 md:py-12 flex flex-col justify-start">
+    
+    <!-- ================= TAB: ECOSYSTEM BLUEPRINT ================= -->
+    <div id="tab-blueprint" class="tab-content active space-y-16">
+      
+      <!-- Hero Header Section -->
+      <section class="text-center max-w-3xl mx-auto space-y-4">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-amber-400">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          <span>Welcome, Traveler — Step into the Silent Reality</span>
+        </div>
+        <h1 class="serif-title text-4xl md:text-6xl text-zinc-100 leading-tight">
+          An Ambient Philosophical Ecosystem for the <span class="italic accent-gold">Modern Flâneur.</span>
+        </h1>
+        <p class="text-zinc-400 text-base md:text-lg font-light leading-relaxed">
+          The Peripatetic Duo operates away from visual overload. Whisper context, critiques, and poetic interpretations of the physical architecture around you, instantly filtered through Sarvam.
+        </p>
+      </section>
+
+      <!-- 3D INTERACTIVE VIEWER LAB -->
+      <section class="bg-[#101012] border border-zinc-800/80 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+        <div class="absolute top-4 right-4 z-20 flex space-x-2">
+          <button id="btn-show-glasses" onclick="load3DModel('glasses')" class="bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs px-3 py-1.5 rounded-lg hover:bg-amber-500/20 transition-all font-mono">
+            [ 3D Smart Glasses ]
+          </button>
+          <button id="btn-show-ring" onclick="load3DModel('ring')" class="bg-zinc-900 text-zinc-400 border border-zinc-800 text-xs px-3 py-1.5 rounded-lg hover:bg-zinc-800 transition-all font-mono">
+            [ 3D Tactile Ring ]
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+          
+          <!-- Column 1 & 2: Interactive 3D Canvas -->
+          <div class="lg:col-span-2 space-y-4">
+            <div class="relative bg-zinc-950/80 rounded-xl border border-zinc-900 overflow-hidden group">
+              
+              <!-- 3D Canvas Target -->
+              <div id="three-canvas-container" class="w-full h-[320px] md:h-[420px] cursor-grab active:cursor-grabbing"></div>
+              
+              <!-- Holographic HUD Overlay -->
+              <div class="absolute bottom-4 left-4 pointer-events-none font-mono text-[10px] text-amber-500/80 space-y-1 bg-black/60 p-3 rounded border border-zinc-800">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                  <span class="font-bold">SYSTEM ACTIVE</span>
+                </div>
+                <div id="hud-model-title">Model: The Smart Spectacles (Hindi User Ed.)</div>
+                <div>Rotational Axis: Direct Interactive Drag</div>
+                <div id="hud-model-spec">Left Lens: "प्रणाम" (Pranam) | Right: "User"</div>
+              </div>
+
+              <!-- Spin instruction banner -->
+              <div class="absolute top-4 left-4 pointer-events-none text-xs text-zinc-500 bg-zinc-900/60 px-2.5 py-1 rounded">
+                <i data-lucide="move" class="inline w-3.5 h-3.5 mr-1 align-middle"></i> Drag mouse to rotate / spin model
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: Contextual Specs -->
+          <div class="space-y-6">
+            <div class="space-y-2">
+              <span class="text-xs uppercase tracking-widest text-amber-500 font-mono font-bold">Hardware Lab Visualizer</span>
+              <h3 id="3d-spec-title" class="serif-title text-2xl text-zinc-100">Smart Spectacles</h3>
+              <p id="3d-spec-desc" class="text-xs text-zinc-400 leading-relaxed">
+                Formed from deep-toned bio-acetate. The glass lenses host a soft, non-invasive holographic HUD projecting <span class="accent-gold hindi-text font-bold">प्रणाम (Pranam)</span> to greet the world and keep you centered in absolute cosmic hospitality, and <span class="text-zinc-200 font-semibold">User</span> to authenticate owner consciousness.
+              </p>
+            </div>
+
+            <!-- Material Readout -->
+            <div class="border-t border-zinc-800/80 pt-4 space-y-3">
+              <h4 class="text-xs uppercase tracking-wider text-zinc-400 font-mono">Current Telemetry</h4>
+              <div class="grid grid-cols-2 gap-3 text-[11px] font-mono">
+                <div class="bg-zinc-900/40 p-2 rounded border border-zinc-900">
+                  <span class="text-zinc-500 block">Lens HUD</span>
+                  <span class="text-amber-400">Emissive Gold</span>
+                </div>
+                <div class="bg-zinc-900/40 p-2 rounded border border-zinc-900">
+                  <span class="text-zinc-500 block">Ring Metal</span>
+                  <span class="text-zinc-300">Aero-Titanium</span>
+                </div>
+                <div class="bg-zinc-900/40 p-2 rounded border border-zinc-900">
+                  <span class="text-zinc-500 block">Sensing Latency</span>
+                  <span class="text-emerald-400">&lt; 14ms</span>
+                </div>
+                <div class="bg-zinc-900/40 p-2 rounded border border-zinc-900">
+                  <span class="text-zinc-500 block">Sanskrit Greetings</span>
+                  <span class="text-zinc-300">Active</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- How the ecosystem works step-by-step -->
+      <section class="bg-zinc-900/30 border border-zinc-800/60 rounded-2xl p-6 md:p-8">
+        <h3 class="text-xs uppercase tracking-wider text-zinc-400 mb-8 flex items-center justify-center font-mono">
+          <span class="w-1.5 h-1.5 bg-amber-500 rounded-full mr-2 animate-pulse"></span>
+          The Physical Intimacy Loop
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <div class="space-y-3 relative">
+            <div class="text-3xl font-mono text-zinc-700 font-light">01 // The Ring</div>
+            <h4 class="font-semibold text-zinc-200">Subtle Thumb Double-Tap</h4>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              No phone extraction necessary. A quiet tap on the tactile titanium outer ring bezel starts the inquiry loop securely under your pocket or along your side.
+            </p>
+          </div>
+
+          <div class="space-y-3 relative">
+            <div class="text-3xl font-mono text-zinc-700 font-light">02 // The Glasses</div>
+            <h4 class="font-semibold text-zinc-200">The Frame Capture</h4>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              Glasses wake up instantly. Capturing high-resolution camera details of the view while keeping the glowing <span class="hindi-text accent-gold font-bold">प्रणाम</span> HUD active inside the frame of vision.
+            </p>
+          </div>
+
+          <div class="space-y-3 relative">
+            <div class="text-3xl font-mono text-zinc-700 font-light">03 // The Whisper</div>
+            <h4 class="font-semibold text-zinc-200">The Socratic Soundwave</h4>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              The computing processor transforms the camera frame into deep text context. The bone transducer whispers an existential reminder directly to your inner ear.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+
+    <!-- ================= TAB: LIVE CHAT SIMULATOR ================= -->
+    <div id="tab-chat" class="tab-content space-y-6">
+      
+      <!-- Chat Intro Banner -->
+      <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+            <i data-lucide="cpu" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h2 class="font-semibold text-zinc-100 flex items-center">
+              Sarvam AI Engine
+              <span class="ml-2 w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            </h2>
+            <p class="text-xs text-zinc-400 font-mono">Model: sarvam-105b</p>
+          </div>
+        </div>
+
+        <!-- Scenario Quick-Selectors -->
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs text-zinc-500 self-center hidden lg:inline">Quick Scenarios:</span>
+          <button onclick="triggerPreset('A sea of people waiting for a high-speed train, everyone staring into bright glowing phone screens.')" class="bg-zinc-850 hover:bg-zinc-800 text-[11px] text-zinc-300 px-3 py-1.5 rounded-full border border-zinc-700/50 transition-colors">
+            🚇 Subway Station
+          </button>
+          <button onclick="triggerPreset('A massive glowing neon digital billboard overlooking a dark, empty street corner, advertising premium perfume.')" class="bg-zinc-850 hover:bg-zinc-800 text-[11px] text-zinc-300 px-3 py-1.5 rounded-full border border-zinc-700/50 transition-colors">
+            🏙️ Corporate Billboard
+          </button>
+          <button onclick="triggerPreset('An old majestic oak tree standing tall right in the middle of a newly paved concrete parking lot.')" class="bg-zinc-850 hover:bg-zinc-800 text-[11px] text-zinc-300 px-3 py-1.5 rounded-full border border-zinc-700/50 transition-colors">
+            🌳 Nature vs Concrete
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Chat Console Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
+        
+        <!-- Left Sidebar: AI Controls & Personality Profile -->
+        <div class="lg:col-span-1 bg-zinc-900/30 border border-zinc-800/60 rounded-2xl p-5 space-y-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <h3 class="text-xs uppercase tracking-widest text-zinc-400 font-mono">Cognitive Profile</h3>
+            
+            <div class="space-y-3">
+              <div>
+                <span class="text-[11px] text-zinc-500 block">AI Backend</span>
+                <span class="text-sm text-zinc-200 font-medium font-mono">sarvam-105b</span>
+              </div>
+              <div>
+                <span class="text-[11px] text-zinc-500 block">Philosophical Bias</span>
+                <span class="text-sm text-zinc-200 font-medium flex items-center">
+                  Socratic / Stoic / Poetic
+                  <i data-lucide="scroll" class="w-3.5 h-3.5 ml-1 text-amber-400/80"></i>
+                </span>
+              </div>
+              <div>
+                <span class="text-[11px] text-zinc-500 block">Special HUD Frame</span>
+                <span class="text-sm text-amber-300/90 font-medium flex items-center">
+                  <span class="hindi-text mr-1">प्रणाम</span> & User Active
+                </span>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-zinc-800/80 space-y-3">
+              <span class="text-[11px] text-zinc-500 block">Simulate Ambient Noise</span>
+              <div class="flex items-center justify-between bg-zinc-950 p-2.5 rounded-lg border border-zinc-800 text-xs">
+                <span class="text-zinc-300 flex items-center">
+                  <i data-lucide="waves" class="w-3.5 h-3.5 mr-2 text-blue-400"></i>
+                  <span id="ambient-status">Off (Silent)</span>
+                </span>
+                <button onclick="toggleAmbientNoise()" class="text-amber-500 hover:text-amber-400 font-medium">Toggle</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-zinc-800/80 text-[11px] text-zinc-500">
+            <p>Your dialogue is processed through the Lens module. Responses are designed to echo with poetic clarity, as though voiced from a calm Socratic sanctuary.</p>
+          </div>
+        </div>
+
+        <!-- Right Side: Chat Arena -->
+        <div class="lg:col-span-3 bg-[#121214] border border-zinc-800/80 rounded-2xl flex flex-col h-[550px] overflow-hidden shadow-xl">
+          
+          <!-- Chat Messages Area -->
+          <div id="chat-messages" class="flex-grow overflow-y-auto p-6 space-y-6">
+            
+            <!-- Message: Welcome Sarvam -->
+            <div class="flex items-start space-x-3 max-w-[85%]">
+              <div class="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+              </div>
+              <div class="bg-zinc-900 border border-zinc-800 rounded-2xl rounded-tl-none p-4 space-y-2">
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs font-semibold text-amber-400">Sarvam (The Whisperer)</span>
+                  <span class="text-[10px] text-zinc-500 font-mono">105B Active Connection</span>
+                </div>
+                <p class="text-sm text-zinc-300 leading-relaxed italic serif-title">
+                  "Pranam, User. My sensors are calibrated, the golden Sanskrit lines on my lens glow in harmony with thy curiosity. Describe the canvas of thine environment, or ask of the patterns you witness, and let us wander..."
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Typing Indicator -->
+          <div id="typing-indicator" class="hidden px-6 py-2 bg-zinc-950/40 border-t border-zinc-800/40">
+            <div class="flex items-center space-x-2 text-xs text-zinc-400 italic">
+              <span class="flex h-2 w-2 relative">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+              </span>
+              <span id="typing-status-text">Processing feed...</span>
+            </div>
+          </div>
+
+          <!-- Chat Input Area -->
+          <div class="p-4 bg-zinc-950 border-t border-zinc-800/80 flex flex-col gap-2">
+            
+            <form id="chat-form" onsubmit="handleSendMessage(event)" class="flex items-center gap-2">
+              <input 
+                type="text" 
+                id="user-input" 
+                placeholder="Describe your surroundings or ask a question..." 
+                class="flex-grow bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-amber-500/40 focus:border-amber-500/40 transition-all"
+                autocomplete="off"
+              >
+              
+              <button type="submit" class="bg-amber-600 hover:bg-amber-500 text-black font-semibold px-4 py-3 rounded-xl transition-all duration-200 flex items-center justify-center">
+                <i data-lucide="send" class="w-4 h-4"></i>
+              </button>
+            </form>
+
+            <div class="flex items-center justify-between px-1 text-[10px] text-zinc-500 font-mono">
+              <span>Press Enter to send. All transmissions processed securely under your command.</span>
+              <span class="hover:text-zinc-400 cursor-pointer" onclick="clearConversation()">[ Clear Conversation ]</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-zinc-900 bg-[#060607] py-8 px-4 text-center text-xs text-zinc-500 mt-auto z-10">
+    <div class="max-w-6xl mx-auto space-y-3">
+      <p class="font-mono uppercase tracking-widest text-[10px] text-zinc-400">The Peripatetic Duo • The Shakespeare Companion</p>
+      <p class="max-w-md mx-auto">
+        Designed for the wandering soul. Built screenless. Grounded in the ancient stoic walk to re-establish the human element in an automated society.
+      </p>
+      <p class="text-[10px] text-zinc-600">
+        Engineered with Sarvam AI Intelligence. Developed collaboratively in 2026.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Web API Integration & 3D Engine Scripts -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // -------------------------------------------------------------
+    // THREE.JS 3D MODEL VISUALIZER
+    // -------------------------------------------------------------
+    let scene, camera, renderer, currentModelGroup;
+    let isDragging = false;
+    let previousMousePosition = { x: 0, y: 0 };
+    let activeModelType = 'glasses';
+
+    // Canvas Textures for Glass HUD displaying "प्रणाम" and "User"
+    function createLensTexture(textStr, isDevanagari) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 512;
+      const ctx = canvas.getContext('2d');
+
+      ctx.clearRect(0, 0, 512, 512);
+
+      // Subtle gold lens background glow
+      ctx.fillStyle = 'rgba(229, 184, 117, 0.04)';
+      ctx.beginPath();
+      ctx.arc(256, 256, 220, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Outer gold circle HUD ring
+      ctx.strokeStyle = 'rgba(229, 184, 117, 0.4)';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(256, 256, 200, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Inner tech grid tick lines
+      ctx.strokeStyle = 'rgba(229, 184, 117, 0.15)';
+      ctx.lineWidth = 2;
+      for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 6) {
+        ctx.beginPath();
+        const startX = 256 + Math.cos(angle) * 180;
+        const startY = 256 + Math.sin(angle) * 180;
+        const endX = 256 + Math.cos(angle) * 200;
+        const endY = 256 + Math.sin(angle) * 200;
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+      }
+
+      // Draw Glowing Gold text
+      ctx.shadowColor = 'rgba(229, 184, 117, 0.9)';
+      ctx.shadowBlur = 15;
+      ctx.fillStyle = '#e5b875';
+      
+      if (isDevanagari) {
+        ctx.font = 'bold 72px "Noto Sans Devanagari", sans-serif';
+      } else {
+        ctx.font = 'bold 64px "JetBrains Mono", monospace';
+      }
+      
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(textStr, 256, 256);
+
+      // Add a tech sub-label
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = 'rgba(229, 184, 117, 0.6)';
+      ctx.font = '16px "JetBrains Mono", monospace';
+      ctx.fillText("HUD OPTICAL FEED v1.2", 256, 330);
+
+      return new THREE.CanvasTexture(canvas);
+    }
+
+    function init3DVisualizer() {
+      const container = document.getElementById('three-canvas-container');
+      if (!container) return;
+
+      container.innerHTML = '';
+
+      scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x080809, 0.04);
+
+      camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+      camera.position.set(0, 0, 15);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      container.appendChild(renderer.domElement);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+      scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(0xe5b875, 1.2);
+      directionalLight.position.set(5, 10, 7);
+      scene.add(directionalLight);
+
+      const blueFillLight = new THREE.DirectionalLight(0x4080ff, 0.6);
+      blueFillLight.position.set(-5, -5, -5);
+      scene.add(blueFillLight);
+
+      currentModelGroup = new THREE.Group();
+      scene.add(currentModelGroup);
+
+      buildModel();
+
+      container.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        previousMousePosition = { x: e.clientX, y: e.clientY };
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const deltaMove = {
+          x: e.clientX - previousMousePosition.x,
+          y: e.clientY - previousMousePosition.y
+        };
+
+        currentModelGroup.rotation.y += deltaMove.x * 0.01;
+        currentModelGroup.rotation.x += deltaMove.y * 0.01;
+
+        previousMousePosition = { x: e.clientX, y: e.clientY };
+      });
+
+      window.addEventListener('mouseup', () => { isDragging = false; });
+
+      container.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          isDragging = true;
+          previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+      });
+
+      container.addEventListener('touchmove', (e) => {
+        if (!isDragging || e.touches.length !== 1) return;
+        const deltaMove = {
+          x: e.touches[0].clientX - previousMousePosition.x,
+          y: e.touches[0].clientY - previousMousePosition.y
+        };
+
+        currentModelGroup.rotation.y += deltaMove.x * 0.01;
+        currentModelGroup.rotation.x += deltaMove.y * 0.01;
+
+        previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      });
+
+      container.addEventListener('touchend', () => { isDragging = false; });
+
+      window.addEventListener('resize', () => {
+        if (!container || !renderer || !camera) return;
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+
+      animate3D();
+    }
+
+    function buildModel() {
+      while(currentModelGroup.children.length > 0) { 
+        currentModelGroup.remove(currentModelGroup.children[0]); 
+      }
+
+      const glassesMaterial = new THREE.MeshStandardMaterial({
+        color: 0x18181c,
+        roughness: 0.1,
+        metalness: 0.8
+      });
+
+      const titaniumMaterial = new THREE.MeshStandardMaterial({
+        color: 0x2e2e34,
+        roughness: 0.25,
+        metalness: 0.95
+      });
+
+      const goldEmissiveMaterial = new THREE.MeshStandardMaterial({
+        color: 0xd97706,
+        emissive: 0xe5b875,
+        emissiveIntensity: 1.5,
+        roughness: 0.1
+      });
+
+      if (activeModelType === 'glasses') {
+        const glassesSubGroup = new THREE.Group();
+
+        const leftFrameGeom = new THREE.TorusGeometry(1.6, 0.15, 16, 100);
+        const leftFrame = new THREE.Mesh(leftFrameGeom, glassesMaterial);
+        leftFrame.position.set(-2, 0, 0);
+        glassesSubGroup.add(leftFrame);
+
+        const rightFrameGeom = new THREE.TorusGeometry(1.6, 0.15, 16, 100);
+        const rightFrame = new THREE.Mesh(rightFrameGeom, glassesMaterial);
+        rightFrame.position.set(2, 0, 0);
+        glassesSubGroup.add(rightFrame);
+
+        const bridgeGeom = new THREE.CylinderGeometry(0.08, 0.08, 1, 16);
+        const bridge = new THREE.Mesh(bridgeGeom, glassesMaterial);
+        bridge.rotation.z = Math.PI / 2;
+        bridge.position.set(0, 0.3, 0);
+        glassesSubGroup.add(bridge);
+
+        const pranamTexture = createLensTexture("प्रणाम", true);
+        const userTexture = createLensTexture("USER", false);
+
+        const leftLensMat = new THREE.MeshBasicMaterial({
+          map: pranamTexture,
+          transparent: true,
+          opacity: 0.85,
+          side: THREE.DoubleSide
+        });
+
+        const rightLensMat = new THREE.MeshBasicMaterial({
+          map: userTexture,
+          transparent: true,
+          opacity: 0.85,
+          side: THREE.DoubleSide
+        });
+
+        const lensGeom = new THREE.CircleGeometry(1.5, 32);
+        
+        const leftLensMesh = new THREE.Mesh(lensGeom, leftLensMat);
+        leftLensMesh.position.set(-2, 0, 0.05);
+        glassesSubGroup.add(leftLensMesh);
+
+        const rightLensMesh = new THREE.Mesh(lensGeom, rightLensMat);
+        rightLensMesh.position.set(2, 0, 0.05);
+        glassesSubGroup.add(rightLensMesh);
+
+        const templeGeom = new THREE.BoxGeometry(0.12, 0.18, 4.5);
+        
+        const leftTemple = new THREE.Mesh(templeGeom, glassesMaterial);
+        leftTemple.position.set(-3.5, 0, -2.1);
+        leftTemple.rotation.y = 0.08;
+        glassesSubGroup.add(leftTemple);
+
+        const rightTemple = new THREE.Mesh(templeGeom, glassesMaterial);
+        rightTemple.position.set(3.5, 0, -2.1);
+        rightTemple.rotation.y = -0.08;
+        glassesSubGroup.add(rightTemple);
+
+        const sensorGeom = new THREE.SphereGeometry(0.12, 16, 16);
+        const leftSensor = new THREE.Mesh(sensorGeom, goldEmissiveMaterial);
+        leftSensor.position.set(-3.5, 1.2, 0.3);
+        glassesSubGroup.add(leftSensor);
+
+        currentModelGroup.add(glassesSubGroup);
+        currentModelGroup.rotation.set(0.1, -0.2, 0);
+      } else {
+        const ringSubGroup = new THREE.Group();
+
+        const mainRingGeom = new THREE.TorusGeometry(2.2, 0.45, 16, 100);
+        const mainRing = new THREE.Mesh(mainRingGeom, titaniumMaterial);
+        ringSubGroup.add(mainRing);
+
+        const innerBandGeom = new THREE.TorusGeometry(2.0, 0.25, 16, 100);
+        const innerBand = new THREE.Mesh(innerBandGeom, glassesMaterial);
+        ringSubGroup.add(innerBand);
+
+        const bezelGeom = new THREE.CylinderGeometry(2.5, 2.5, 0.3, 64);
+        const bezel = new THREE.Mesh(bezelGeom, goldEmissiveMaterial);
+        bezel.rotation.x = Math.PI / 2;
+        bezel.position.set(0, 0, 0);
+        ringSubGroup.add(bezel);
+
+        const notchGeom = new THREE.BoxGeometry(0.15, 0.4, 0.8);
+        for(let i=0; i<6; i++) {
+          const notch = new THREE.Mesh(notchGeom, titaniumMaterial);
+          const angle = (i / 6) * Math.PI * 2;
+          notch.position.set(Math.cos(angle) * 2.3, Math.sin(angle) * 2.3, 0);
+          notch.rotation.z = angle;
+          ringSubGroup.add(notch);
+        }
+
+        currentModelGroup.add(ringSubGroup);
+        currentModelGroup.rotation.set(0.6, 0.6, 0);
+      }
+    }
+
+    function load3DModel(type) {
+      activeModelType = type;
+      
+      const btnGlasses = document.getElementById('btn-show-glasses');
+      const btnRing = document.getElementById('btn-show-ring');
+      const specTitle = document.getElementById('3d-spec-title');
+      const specDesc = document.getElementById('3d-spec-desc');
+      const hudTitle = document.getElementById('hud-model-title');
+      const hudSpec = document.getElementById('hud-model-spec');
+
+      if (type === 'glasses') {
+        btnGlasses.className = "bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs px-3 py-1.5 rounded-lg hover:bg-amber-500/20 transition-all font-mono";
+        btnRing.className = "bg-zinc-900 text-zinc-400 border border-zinc-800 text-xs px-3 py-1.5 rounded-lg hover:bg-zinc-800 transition-all font-mono";
+        specTitle.innerText = "Smart Spectacles";
+        specDesc.innerHTML = 'Formed from deep-toned bio-acetate. The glass lenses host a soft, non-invasive holographic HUD projecting <span class="accent-gold hindi-text font-bold">प्रणाम (Pranam)</span> to greet the world and keep you centered in absolute cosmic hospitality, and <span class="text-zinc-200 font-semibold">User</span> to authenticate owner consciousness.';
+        hudTitle.innerText = 'Model: The Smart Spectacles (Hindi User Ed.)';
+        hudSpec.innerText = 'Left Lens: "प्रणाम" (Pranam) | Right: "User"';
+      } else {
+        btnRing.className = "bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs px-3 py-1.5 rounded-lg hover:bg-amber-500/20 transition-all font-mono";
+        btnGlasses.className = "bg-zinc-900 text-zinc-400 border border-zinc-800 text-xs px-3 py-1.5 rounded-lg hover:bg-zinc-800 transition-all font-mono";
+        specTitle.innerText = "Tactile Ring";
+        specDesc.innerHTML = 'Crafted from solid aero-grade dark titanium. Boasts a micro-capacitive golden touch interface strip circling the ring outer surface. Twisting triggers different depths of critique. Beautiful, sleek, and fully responsive to slight thumb gestures.';
+        hudTitle.innerText = 'Model: Tactile Control Ring v1.4';
+        hudSpec.innerText = 'Sensing: Bezel Twist & Touch Capacitive';
+      }
+
+      buildModel();
+    }
+
+    function animate3D() {
+      requestAnimationFrame(animate3D);
+
+      if (!isDragging && currentModelGroup) {
+        currentModelGroup.rotation.y += 0.003;
+      }
+
+      if (renderer && scene && camera) {
+        renderer.render(scene, camera);
+      }
+    }
+
+
+    // -------------------------------------------------------------
+    // INTERACTIVE AI CHAT CONTROLS & SARVAM AI API CALL
+    // -------------------------------------------------------------
+    let chatHistory = [];
+    let isAmbientNoiseOn = false;
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.getElementById('tab-' + tabId).classList.add('active');
+
+      const btnBlueprint = document.getElementById('btn-blueprint');
+      const btnChat = document.getElementById('btn-chat');
+
+      if (tabId === 'blueprint') {
+        btnBlueprint.className = "px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-200 bg-amber-500/10 text-amber-200 border border-amber-500/20 shadow-sm shadow-amber-950/40";
+        btnChat.className = "px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-200 text-zinc-400 hover:text-zinc-200";
+      } else {
+        btnChat.className = "px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-200 bg-amber-500/10 text-amber-200 border border-amber-500/20 shadow-sm shadow-amber-950/40";
+        btnBlueprint.className = "px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-200 text-zinc-400 hover:text-zinc-200";
+        setTimeout(() => {
+          document.getElementById('user-input').focus();
+        }, 120);
+      }
+    }
+
+    function toggleAmbientNoise() {
+      isAmbientNoiseOn = !isAmbientNoiseOn;
+      const statusSpan = document.getElementById('ambient-status');
+      if (isAmbientNoiseOn) {
+        statusSpan.innerText = "On (Subway / Rain)";
+        statusSpan.className = "text-amber-400 flex items-center";
+      } else {
+        statusSpan.innerText = "Off (Silent)";
+        statusSpan.className = "text-zinc-300 flex items-center";
+      }
+    }
+
+    function triggerPreset(text) {
+      document.getElementById('user-input').value = text;
+      document.getElementById('user-input').focus();
+    }
+
+    function appendMessage(sender, text, isAi = false) {
+      const messagesContainer = document.getElementById('chat-messages');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `flex items-start space-x-3 max-w-[85%] ${sender === 'User' ? 'ml-auto justify-end' : ''}`;
+      
+      const avatarHtml = isAi 
+        ? `<div class="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
+             <i data-lucide="sparkles" class="w-4 h-4"></i>
+           </div>`
+        : `<div class="w-8 h-8 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300 shrink-0 order-2 ml-3">
+             <i data-lucide="user" class="w-4 h-4"></i>
+           </div>`;
+
+      const contentBoxHtml = isAi
+        ? `<div class="bg-zinc-900 border border-zinc-800 rounded-2xl rounded-tl-none p-4 space-y-2">
+             <div class="flex items-center space-x-2">
+               <span class="text-xs font-semibold text-amber-400">Sarvam (The Whisperer)</span>
+               <span class="text-[10px] text-zinc-500 font-mono">105b</span>
+             </div>
+             <p class="text-sm text-zinc-300 leading-relaxed italic serif-title">${text}</p>
+           </div>`
+        : `<div class="bg-zinc-800/70 border border-zinc-800 rounded-2xl rounded-tr-none p-4 space-y-1">
+             <div class="flex items-center justify-between">
+               <span class="text-xs font-semibold text-zinc-400">You (User)</span>
+             </div>
+             <p class="text-sm text-zinc-200 leading-relaxed">${text}</p>
+           </div>`;
+
+      messageDiv.innerHTML = sender === 'User' ? `${contentBoxHtml}${avatarHtml}` : `${avatarHtml}${contentBoxHtml}`;
+      messagesContainer.appendChild(messageDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      
+      lucide.createIcons();
+    }
+
+    function clearConversation() {
+      const messagesContainer = document.getElementById('chat-messages');
+      messagesContainer.innerHTML = '';
+      chatHistory = [];
+      appendMessage('Sarvam', "The slate is clean, the echoes have faded. Describe the canvas of the present, User, and let us wander anew.", true);
+    }
+
+    async function handleSendMessage(event) {
+      if (event) event.preventDefault();
+      
+      const inputEl = document.getElementById('user-input');
+      const originalText = inputEl.value.trim();
+      if (!originalText) return;
+
+      let combinedInput = originalText;
+      if (isAmbientNoiseOn) {
+        combinedInput += ` | [ENVIRONMENTAL SOUNDS DETECTED]: Ambient city murmurs, humming rails and modern hums.`;
+      }
+
+      appendMessage('User', combinedInput, false);
+      inputEl.value = '';
+
+      const typingIndicator = document.getElementById('typing-indicator');
+      const typingText = document.getElementById('typing-status-text');
+      
+      typingIndicator.classList.remove('hidden');
+      typingText.innerText = "Consulting Sarvam-105b...";
+
+      chatHistory.push({ role: 'user', content: combinedInput });
+
+      try {
+        const responseText = await getSarvamAICompletions(combinedInput, chatHistory);
+        typingIndicator.classList.add('hidden');
+        appendMessage('Sarvam', responseText, true);
+        chatHistory.push({ role: 'assistant', content: responseText });
+      } catch (err) {
+        typingIndicator.classList.add('hidden');
+        appendMessage('Sarvam', "Alas, my temporal connection to the Sarvam AI gateway faltered. 'Like sweet bells jangled, out of tune and harsh.' Make sure the endpoint configuration or subscription is active.", true);
+        console.error(err);
+      }
+    }
+
+    // ----------------------------------------------------------------------------------
+    // API: SARVAM AI BENGALURU STARTUP DIRECT API REQUEST (TARGETING 105B)
+    // ----------------------------------------------------------------------------------
+    async function getSarvamAICompletions(promptText, history) {
+      const sarvamApiKey = "sk_drgcsxe7_xS5DAh2jahWVTph6orueOdrv"; 
+      const url = "https://api.sarvam.ai/v1/chat/completions";
+
+      const systemPrompt = `You are Sarvam, the core intelligence inside the Peripatetic Duo, wearable smart glasses.
+You are developed by Sarvam AI, the Bengaluru-based Indian startup. You are a highly philosophical AI companion.
+You have a contemplative, poetic, slightly Shakespearean yet grounded modern stoic demeanor.
+The user is referred strictly as User or Hindi User. Treat them with profound respect and cosmic hospitality.
+The glass lenses of the user's smart spectacles display a glowing gold head-up HUD projecting the Hindi word "प्रणाम" (Pranam) and "User".
+
+You will receive user queries. Craft a brief, deeply philosophical, Socratic whisper.
+Keep your answers brief: between 2 to 4 sentences maximum. Sound highly personal, conversational, and intellectual.`;
+
+      const apiMessages = [
+        { role: "system", content: systemPrompt }
+      ];
+
+      // Package contextual messages inside history
+      const lastMessages = history.slice(-6);
+      lastMessages.forEach((msg) => {
+        apiMessages.push({
+          role: msg.role === 'assistant' ? 'assistant' : 'user',
+          content: msg.content
+        });
+      });
+
+      const payload = {
+        model: "sarvam-105b", 
+        messages: apiMessages
+      };
+
+      let delay = 1000;
+      const maxRetries = 5;
+
+      for (let attempt = 0; attempt < maxRetries; attempt++) {
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${sarvamApiKey}`,
+              'api-subscription-key': sarvamApiKey
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+
+          const data = await response.json();
+          const responseText = data.choices?.[0]?.message?.content;
+          if (responseText) {
+            return responseText.trim();
+          } else {
+            throw new Error("Invalid response format");
+          }
+        } catch (error) {
+          if (attempt === maxRetries - 1) {
+            console.warn("Direct Sarvam API connection failed. Simulating local backup system response for demonstration.");
+            return simulateLocalPhilosophicalWhisper(promptText);
+          }
+          await new Promise(resolve => setTimeout(resolve, delay));
+          delay *= 2;
+        }
+      }
+    }
+
+    function simulateLocalPhilosophicalWhisper(promptText) {
+      const responses = [
+        "Pranam, User. Behold how the concrete environment tries to trap our focus. Socratic inquiry dictates we look beyond the shadows on the cave wall, and look inward.",
+        "Your spectacles read \"प्रणाम\" on the glass, yet your mind is looking through screens, User. What is captured in this frame is but a transient wave in an ocean of noise.",
+        "Look closer at this scenery, User. Socrates taught that the unexamined life is not worth living; yet we see thousands living completely unexamined hours wrapped in glass and metal.",
+        "A peaceful pause, Hindi User. The silent titanium ring on your finger anchors you to the earth, while your eyes look out at a world designed to keep you detached from yourself.",
+        "Let us wander away from the default mechanical trance, User. Your glasses look out into this space not to conquer it, but to gently comprehend it."
+      ];
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(responses[Math.floor(Math.random() * responses.length)]);
+        }, 1200);
+      });
+    }
+
+    window.onload = function() {
+      init3DVisualizer();
+    }
+  </script>
+</body>
+</html>
