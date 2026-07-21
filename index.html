@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Shakespeare Companion - The Peripatetic Duo</title>
+  <title>Drishti: The Seeker's Codex</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -91,7 +91,7 @@
         </div>
         <h3 class="serif-title text-2xl text-zinc-100">Pranam, Traveler</h3>
         <p class="text-xs text-zinc-400 leading-relaxed">
-          By what name shall the Shakespeare Companion address thine essence on our peripatetic journey?
+          By what name shall Sarvam address thine essence on our chareiveti journey?
         </p>
       </div>
 
@@ -121,8 +121,8 @@
           <i data-lucide="compass" class="text-black w-5 h-5"></i>
         </div>
         <div>
-          <span class="font-semibold text-zinc-100 tracking-wide block">THE SHAKESPEARE COMPANION</span>
-          <span class="text-[10px] text-zinc-400 tracking-widest uppercase block -mt-1">Ecosystem Blueprint</span>
+          <span class="font-semibold text-zinc-100 tracking-wide block">DRISHTI</span>
+          <span class="text-[10px] text-zinc-400 tracking-widest uppercase block -mt-1">The Seeker's Codex</span>
         </div>
       </div>
 
@@ -148,13 +148,13 @@
       <section class="text-center max-w-3xl mx-auto space-y-4">
         <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-amber-400">
           <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-          <span>Welcome, <span class="active-user-name text-amber-200 font-semibold">Traveler</span> — Step into the Silent Reality</span>
+          <span>Welcome, <span class="active-user-name text-amber-200 font-semibold">Traveler</span> — <span class="hindi-text font-bold">दृष्टि</span> (The Vision Within)</span>
         </div>
         <h1 class="serif-title text-4xl md:text-6xl text-zinc-100 leading-tight">
           An Ambient Philosophical Ecosystem for the <span class="italic accent-gold">Modern Flâneur.</span>
         </h1>
         <p class="text-zinc-400 text-base md:text-lg font-light leading-relaxed">
-          The Peripatetic Duo operates away from visual overload. Whisper context, critiques, and poetic interpretations of the physical architecture around you, instantly filtered through Sarvam.
+          Drishti operates away from visual overload. Whisper context, critiques, and poetic interpretations of the physical architecture around you, instantly filtered through Sarvam.
         </p>
       </section>
 
@@ -184,7 +184,7 @@
                   <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
                   <span class="font-bold">SYSTEM ACTIVE</span>
                 </div>
-                <div id="hud-model-title">Model: The Smart Spectacles (Hindi User Ed.)</div>
+                <div id="hud-model-title">Model: The Smart Spectacles (Charaiveti Ed.)</div>
                 <div>Rotational Axis: Direct Interactive Drag</div>
                 <div id="hud-model-spec">Left Lens: "प्रणाम" (Pranam) | Right: "User"</div>
               </div>
@@ -459,7 +459,7 @@
   <!-- Footer -->
   <footer class="border-t border-zinc-900 bg-[#060607] py-8 px-4 text-center text-xs text-zinc-500 mt-auto z-10">
     <div class="max-w-6xl mx-auto space-y-3">
-      <p class="font-mono uppercase tracking-widest text-[10px] text-zinc-400">The Peripatetic Duo • The Shakespeare Companion</p>
+      <p class="font-mono uppercase tracking-widest text-[10px] text-zinc-400">Drishti • The Seeker's Codex</p>
       <p class="max-w-md mx-auto">
         Designed for the wandering soul. Built screenless. Grounded in the ancient stoic walk to re-establish the human element in an automated society.
       </p>
@@ -479,7 +479,7 @@
     // -------------------------------------------------------------
     // REAL-TIME STATE CONFIGURATION
     // -------------------------------------------------------------
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'shakespeare-companion';
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'charaiveti-codex';
     let db = null;
     let auth = null;
     let statsDocRef = null;
@@ -572,12 +572,12 @@
     }
 
     function initLocalFallback() {
-      let savedViews = parseInt(localStorage.getItem('sarvam_views') || "128");
-      let savedLikes = parseInt(localStorage.getItem('sarvam_likes') || "14");
-      let savedNames = JSON.parse(localStorage.getItem('sarvam_names') || '["Hindi User"]');
+      let savedViews = parseInt(localStorage.getItem('charaiveti_views') || "128");
+      let savedLikes = parseInt(localStorage.getItem('charaiveti_likes') || "14");
+      let savedNames = JSON.parse(localStorage.getItem('charaiveti_names') || '["Hindi User"]');
 
       savedViews += 1;
-      localStorage.setItem('sarvam_views', savedViews.toString());
+      localStorage.setItem('charaiveti_views', savedViews.toString());
 
       globalState.views = savedViews;
       globalState.likes = savedLikes;
@@ -616,7 +616,7 @@
             userNames: globalState.userNames
           }, { merge: true });
         } else {
-          localStorage.setItem('sarvam_names', JSON.stringify(globalState.userNames));
+          localStorage.setItem('charaiveti_names', JSON.stringify(globalState.userNames));
         }
       }
     }
@@ -641,7 +641,7 @@
           views: globalState.views
         }, { merge: true });
       } else {
-        localStorage.setItem('sarvam_views', globalState.views.toString());
+        localStorage.setItem('charaiveti_views', globalState.views.toString());
       }
     }
 
@@ -659,14 +659,13 @@
           likes: globalState.likes
         }, { merge: true });
       } else {
-        localStorage.setItem('sarvam_likes', globalState.likes.toString());
+        localStorage.setItem('charaiveti_likes', globalState.likes.toString());
       }
     }
 
     // Trigger state initialization
     initEcosystemState();
 
-    // Bind custom elements to window to preserve clean inline HTML events
     window.incrementView = incrementView;
     window.incrementLike = incrementLike;
     window.submitUserName = submitUserName;
@@ -681,7 +680,6 @@
     let previousMousePosition = { x: 0, y: 0 };
     let activeModelType = 'glasses';
 
-    // Canvas Textures for Glass HUD displaying "प्रणाम" and "User"
     function createLensTexture(textStr, isDevanagari) {
       const canvas = document.createElement('canvas');
       canvas.width = 512;
@@ -690,20 +688,17 @@
 
       ctx.clearRect(0, 0, 512, 512);
 
-      // Subtle gold lens background glow
       ctx.fillStyle = 'rgba(229, 184, 117, 0.04)';
       ctx.beginPath();
       ctx.arc(256, 256, 220, 0, Math.PI * 2);
       ctx.fill();
 
-      // Outer gold circle HUD ring
       ctx.strokeStyle = 'rgba(229, 184, 117, 0.4)';
       ctx.lineWidth = 4;
       ctx.beginPath();
       ctx.arc(256, 256, 200, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Inner tech grid tick lines
       ctx.strokeStyle = 'rgba(229, 184, 117, 0.15)';
       ctx.lineWidth = 2;
       for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 6) {
@@ -717,7 +712,6 @@
         ctx.stroke();
       }
 
-      // Draw Glowing Gold text
       ctx.shadowColor = 'rgba(229, 184, 117, 0.9)';
       ctx.shadowBlur = 15;
       ctx.fillStyle = '#e5b875';
@@ -732,7 +726,6 @@
       ctx.textBaseline = 'middle';
       ctx.fillText(textStr, 256, 256);
 
-      // Add a tech sub-label
       ctx.shadowBlur = 0;
       ctx.fillStyle = 'rgba(229, 184, 117, 0.6)';
       ctx.font = '16px "JetBrains Mono", monospace';
@@ -961,7 +954,7 @@
         btnRing.className = "bg-zinc-900 text-zinc-400 border border-zinc-800 text-xs px-3 py-1.5 rounded-lg hover:bg-zinc-800 transition-all font-mono";
         specTitle.innerText = "Smart Spectacles";
         specDesc.innerHTML = 'Formed from deep-toned bio-acetate. The glass lenses host a soft, non-invasive holographic HUD projecting <span class="accent-gold hindi-text font-bold">प्रणाम (Pranam)</span> to greet the world and keep you centered in absolute cosmic hospitality, and <span class="text-zinc-200 font-semibold">User</span> to authenticate owner consciousness.';
-        hudTitle.innerText = 'Model: The Smart Spectacles (Hindi User Ed.)';
+        hudTitle.innerText = 'Model: The Smart Spectacles (Charaiveti Ed.)';
         hudSpec.innerText = 'Left Lens: "प्रणाम" (Pranam) | Right: "User"';
       } else {
         btnRing.className = "bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs px-3 py-1.5 rounded-lg hover:bg-amber-500/20 transition-all font-mono";
@@ -994,9 +987,8 @@
     let chatHistory = [];
     let isAmbientNoiseOn = false;
     let currentUploadedSnapshotFile = null;
-    let parsedImaggaTags = []; // Stores the latest identified environmental elements
+    let parsedImaggaTags = [];
 
-    // SECURED BACKEND API CREDENTIALS (FULLY HIDDEN FROM THE UI)
     const _imaggaKey = "acc_7ff0698b47bf308";
     const _imaggaSecret = "a1b6236eb947496ec18b134d45d9fa6d";
     const _sarvamApiKey = "sk_drgcsxe7_xS5DAh2jahWVTph6orueOdrv"; 
@@ -1039,23 +1031,19 @@
       document.getElementById('user-input').focus();
     }
 
-    // Native trigger for glasses camera upload
     function triggerFileUpload() {
       document.getElementById('snapshot-upload').click();
     }
 
-    // Handles the uploaded spectacles snapshot through Imagga
     async function handleFileSelect(event) {
       const file = event.target.files[0];
       if (!file) return;
 
       currentUploadedSnapshotFile = file;
 
-      // Show File UI preview
       document.getElementById('upload-preview-filename').innerText = `Snapshot loaded: ${file.name}`;
       document.getElementById('upload-preview-banner').classList.remove('hidden');
 
-      // Process uploaded spectacles data to Imagga Tagging Engine
       await processSpectaclesThroughImagga(file);
     }
 
@@ -1066,7 +1054,6 @@
       document.getElementById('snapshot-upload').value = '';
     }
 
-    // IMAGGA API PROCESSOR (STAGE 1: Vision Classification)
     async function processSpectaclesThroughImagga(imageFile) {
       const typingIndicator = document.getElementById('typing-indicator');
       const typingText = document.getElementById('typing-status-text');
@@ -1074,13 +1061,11 @@
       typingIndicator.classList.remove('hidden');
       typingText.innerText = "Transmitting spectacles snapshot to Imagga vision node...";
 
-      // Ensure base64 or Direct Multipart upload
       const formData = new FormData();
       formData.append('image', imageFile);
 
       if (_imaggaSecret) {
         try {
-          // 1. Upload snapshot to get upload id
           const uploadRes = await fetch("https://api.imagga.com/v2/uploads", {
             method: 'POST',
             headers: {
@@ -1093,7 +1078,6 @@
           const uploadData = await uploadRes.json();
           const uploadId = uploadData.result.upload_id;
 
-          // 2. Fetch tags associated with upload ID
           typingText.innerText = "Extracting environmental textures (Imagga API)...";
           const tagRes = await fetch(`https://api.imagga.com/v2/tags?image_upload_id=${uploadId}`, {
             method: 'GET',
@@ -1105,7 +1089,6 @@
           if (!tagRes.ok) throw new Error("Imagga Tag Extraction Failed");
           const tagData = await tagRes.json();
           
-          // Extracted high-confidence tags (Confidence > 25)
           parsedImaggaTags = tagData.result.tags
             .filter(t => t.confidence > 25)
             .map(t => t.tag.en);
@@ -1116,11 +1099,9 @@
         } catch (err) {
           console.error(err);
           typingIndicator.classList.add('hidden');
-          // Fallback simulation so user is never stuck in case of CORS or connection failures
           useSimulatedFallbackTags(imageFile.name);
         }
       } else {
-        // Fallback tags computed locally
         setTimeout(() => {
           useSimulatedFallbackTags(imageFile.name);
         }, 1200);
@@ -1131,7 +1112,6 @@
       const typingIndicator = document.getElementById('typing-indicator');
       typingIndicator.classList.add('hidden');
 
-      // Intelligent scenario mapping based on name keywords
       let fallbackTags = ["street", "light", "urban", "architecture", "human presence", "machines"];
       if (fileName.toLowerCase().includes("subway") || fileName.toLowerCase().includes("train")) {
         fallbackTags = ["subway", "train station", "commuters", "smartphones", "glowing screens", "passengers"];
@@ -1145,7 +1125,6 @@
       appendVisionFeedbackNode(fallbackTags, false);
     }
 
-    // Appends the results of Imagga vision analysis directly inside the HUD UI
     function appendVisionFeedbackNode(tags, isRealApi) {
       const messagesContainer = document.getElementById('chat-messages');
       const messageDiv = document.createElement('div');
@@ -1226,12 +1205,10 @@
       chatHistory = [];
       clearUploadedFile();
       const activeName = localStorage.getItem('active_user_name') || "User";
-      appendMessage('Sarvam', `The slate is clean, the echoes have faded. Describe the canvas of the present, ${activeName}, and let us wander anew.`, true);
+      appendMessage('Sarvam', `The slate is clean, the echoes have faded. Describe the canvas of the present, ${activeName}, and let us keep marching on (Charaiveti).`, true);
     }
 
-    // Handles processing local state and UI updates for custom telemetry commands
     function handleLocalTelemetryCommand(command, arg) {
-      // Access Firestore if active to sync with database
       const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
       let databaseConnected = false;
       let dbInstance = null;
@@ -1244,13 +1221,11 @@
           docRef = doc(dbInstance, 'artifacts', appId, 'public', 'data', 'stats', 'main');
           databaseConnected = true;
         }
-      } catch (e) {
-        console.warn("Telemetry command failed to acquire live DB connection, setting locally");
-      }
+      } catch (e) {}
 
       if (command === 'views') {
         const val = parseInt(arg);
-        localStorage.setItem('sarvam_views', val.toString());
+        localStorage.setItem('charaiveti_views', val.toString());
         document.getElementById('telemetry-views').innerText = val;
         appendMessage('Sarvam', `The visual count of this universe has been reshaped. Views set to ${val}.`, true);
         if (databaseConnected && docRef) {
@@ -1258,7 +1233,7 @@
         }
       } else if (command === 'likes') {
         const val = parseInt(arg);
-        localStorage.setItem('sarvam_likes', val.toString());
+        localStorage.setItem('charaiveti_likes', val.toString());
         document.getElementById('telemetry-likes').innerText = val;
         appendMessage('Sarvam', `The heartbeats of our audience have been set to thy tuning. Likes set to ${val}.`, true);
         if (databaseConnected && docRef) {
@@ -1274,13 +1249,10 @@
       const originalText = inputEl.value.trim();
       if (!originalText && parsedImaggaTags.length === 0) return;
 
-      // Check for custom commands
       if (originalText.startsWith('/')) {
         const commandText = originalText.toLowerCase();
         
-        // Command: List souls /slu
         if (commandText === '/slu') {
-          // Retrieve registered traveler names from global localState context
           let savedNames = ["Hindi User"];
           const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
           if (firebaseConfig) {
@@ -1294,17 +1266,15 @@
               }
             } catch (e) {}
           } else {
-            savedNames = JSON.parse(localStorage.getItem('sarvam_names') || '["Hindi User"]');
+            savedNames = JSON.parse(localStorage.getItem('charaiveti_names') || '["Hindi User"]');
           }
 
-          console.log("Logged Traveler Souls:", savedNames);
           appendMessage('User', "/slu", false);
-          appendMessage('Sarvam', `Behold, the roll call of wandering souls who have tread this peripatetic path:<br><br><span class="text-amber-300 font-mono">${savedNames.join(', ')}</span>`, true);
+          appendMessage('Sarvam', `Behold, the roll call of wandering souls who have trod this chareiveti path:<br><br><span class="text-amber-300 font-mono">${savedNames.join(', ')}</span>`, true);
           inputEl.value = '';
           return;
         }
 
-        // Command: Set Views /v=123
         const viewsRegex = /^\/v=(\d+)$/;
         const matchViews = originalText.match(viewsRegex);
         if (matchViews) {
@@ -1315,7 +1285,6 @@
           return;
         }
 
-        // Command: Set Likes /l=123
         const likesRegex = /^\/l=(\d+)$/;
         const matchLikes = originalText.match(likesRegex);
         if (matchLikes) {
@@ -1351,18 +1320,14 @@
         clearUploadedFile();
       } catch (err) {
         typingIndicator.classList.add('hidden');
-        appendMessage('Sarvam', "Alas, my temporal connection to the Sarvam AI gateway faltered. 'Like sweet bells jangled, out of tune and harsh.' Make sure the endpoint configuration or subscription is active.", true);
+        appendMessage('Sarvam', "Alas, my temporal connection to the Sarvam AI gateway faltered. 'Charaiveti' reminds us to keep marching forward despite brief storms.", true);
         console.error(err);
       }
     }
 
-    // ----------------------------------------------------------------------------------
-    // API: SARVAM AI BENGALURU STARTUP DIRECT API REQUEST (TARGETING 30B)
-    // ----------------------------------------------------------------------------------
     async function getSarvamAICompletions(promptText, history) {
       const url = "https://api.sarvam.ai/v1/chat/completions";
 
-      // Inject identified Imagga objects inside Sarvam's prompt context to unify the pipeline
       let environmentContextText = "";
       if (parsedImaggaTags.length > 0) {
         environmentContextText = `[OBJECTS IDENTIFIED IN PHYSICAL LENS BY IMAGGA API]: ${parsedImaggaTags.join(', ')}\n\n`;
@@ -1370,9 +1335,9 @@
 
       const activeName = localStorage.getItem('active_user_name') || "User";
 
-      const systemPrompt = `${environmentContextText}You are Sarvam, the core intelligence inside the Peripatetic Duo, wearable smart glasses.
+      const systemPrompt = `${environmentContextText}You are Sarvam, the core intelligence inside Charaiveti: The Wandering Codex, wearable smart glasses.
 You are developed by Sarvam AI, the Bengaluru-based Indian startup. You are a highly philosophical AI companion.
-You have a contemplative, poetic, slightly Shakespearean yet grounded modern stoic demeanor.
+You have a contemplative, poetic, slightly Stoic yet grounded demeanor aligned with the ancient Vedic walk (Charaiveti).
 The user is referred strictly as ${activeName} or Hindi User. Treat them with profound respect and cosmic hospitality.
 The glass lenses of the user's smart spectacles display a glowing gold head-up HUD projecting the Hindi word "प्रणाम" (Pranam) and "${activeName}".
 
@@ -1385,7 +1350,6 @@ Keep your answers brief: between 2 to 4 sentences maximum. Sound highly personal
         { role: "system", content: systemPrompt }
       ];
 
-      // Package contextual messages inside history
       const lastMessages = history.slice(-6);
       lastMessages.forEach((msg) => {
         apiMessages.push({
@@ -1427,7 +1391,6 @@ Keep your answers brief: between 2 to 4 sentences maximum. Sound highly personal
           }
         } catch (error) {
           if (attempt === maxRetries - 1) {
-            console.warn("Direct Sarvam API connection failed. Simulating local backup system response.");
             return simulateLocalPhilosophicalWhisper(promptText);
           }
           await new Promise(resolve => setTimeout(resolve, delay));
@@ -1438,10 +1401,10 @@ Keep your answers brief: between 2 to 4 sentences maximum. Sound highly personal
 
     function simulateLocalPhilosophicalWhisper(promptText) {
       const activeName = localStorage.getItem('active_user_name') || "User";
-      let customWhisper = `Pranam, ${activeName}. Behold how the concrete environment tries to trap our focus. Socratic inquiry dictates we look beyond the shadows on the cave wall, and look inward.`;
+      let customWhisper = `Pranam, ${activeName}. Charaiveti dictates we keep walking forward, undisturbed by the fleeting noise of the concrete landscape.`;
       
       if (parsedImaggaTags.length > 0) {
-        customWhisper = `Pranam, ${activeName}. Let us contemplate these anchors that Imagga detected: ${parsedImaggaTags.slice(0, 3).join(', ')}. What are they but reflections of our desire to dominate nature with machinery? Examine them deeply.`;
+        customWhisper = `Pranam, ${activeName}. Let us contemplate these anchors that Imagga detected: ${parsedImaggaTags.slice(0, 3).join(', ')}. What are they but reflections of our desire to structure the void?`;
       }
 
       return new Promise((resolve) => {
